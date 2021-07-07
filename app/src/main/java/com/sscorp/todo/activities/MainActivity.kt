@@ -1,80 +1,65 @@
 package com.sscorp.todo.activities
 
+import android.app.AlarmManager
+import android.app.PendingIntent
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.ImageView
-import android.widget.TextView
-import androidx.recyclerview.widget.ItemTouchHelper
-import androidx.recyclerview.widget.RecyclerView
 import com.sscorp.todo.R
-import com.sscorp.todo.adapters.NotesAdapter
-import com.sscorp.todo.adapters.SwipeCallback
+import com.sscorp.todo.fragments.EditNotesFragment
+import com.sscorp.todo.fragments.NotesFragment
 import com.sscorp.todo.models.Note
-import com.sscorp.todo.utils.NotesLoader
+import com.sscorp.todo.notifications.NotificationReceiver
+import java.util.*
 
 class MainActivity : AppCompatActivity() {
-
-    private val notes: MutableList<Note> = getSortedNotes()
-
-    private lateinit var notesAdapter: NotesAdapter
-
-    private var currentVisibility = Visibility.NORMAL
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        setContentToListOfNotes()
-        setSupportActionBar(findViewById(R.id.toolbar))
-        updateCompletedTasks()
-
-        findViewById<ImageView>(R.id.imageViewVisibility).setOnClickListener {
-            onVisibilityChange(it as ImageView)
+        if (savedInstanceState == null) {
+            supportFragmentManager.beginTransaction()
+                .add(R.id.main_container, NotesFragment())
+                .commit()
         }
+        setNotification()
     }
 
-    private fun setContentToListOfNotes() {
-        val list = findViewById<RecyclerView>(R.id.list_notes)
-        notesAdapter = NotesAdapter(this)
-        val itemTouchHelper = ItemTouchHelper(SwipeCallback(notesAdapter))
-        itemTouchHelper.attachToRecyclerView(list)
-        notesAdapter.submitList(notes.filter { !it.isDone })
-        list.adapter = notesAdapter
+    fun openEditNoteFragment(note: Note? = null) {
+        val fragment = if (note == null)
+            EditNotesFragment()
+        else
+            EditNotesFragment.newInstance(note)
+        supportFragmentManager.beginTransaction()
+            .addToBackStack(null)
+            .replace(R.id.main_container, fragment)
+            .commit()
     }
 
-    fun updateCompletedTasks() {
-        val count = notes.filter { it.isDone }.size
-        findViewById<TextView>(R.id.textViewCount).text =
-            String.format(getString(R.string.count_done), count)
-    }
+    private fun setNotification() {
+        val calendar = Calendar.getInstance()
+        calendar.set(Calendar.HOUR_OF_DAY, 10)
+        calendar.set(Calendar.MINUTE, 0)
+        calendar.set(Calendar.SECOND, 0)
 
-    private fun getSortedNotes(): MutableList<Note> {
-        val notes = NotesLoader.getNotes()
-        return notes.sortedDescending().toMutableList()
-    }
+        if (calendar.time < Date())
+            calendar.add(Calendar.DAY_OF_MONTH, 1)
 
-    private fun onVisibilityChange(view: ImageView) {
+        val intent = Intent(applicationContext, NotificationReceiver::class.java)
+        val pendingIntent = PendingIntent.getBroadcast(
+            applicationContext,
+            0,
+            intent,
+            PendingIntent.FLAG_UPDATE_CURRENT
+        )
+        val alarmManager = getSystemService(ALARM_SERVICE) as? AlarmManager
 
-    }
-
-    fun deleteNote(position: Int) {
-        var counter = -1
-        for ((ind, note) in notes.withIndex()) {
-            if (currentVisibility == Visibility.NORMAL && note.isDone)
-                continue
-            counter++
-            if (counter == position) {
-                notes.removeAt(ind)
-                if (currentVisibility == Visibility.SHOWN_ALL)
-                    notesAdapter.submitList(notes.toMutableList())
-                else
-                    notesAdapter.submitList(notes.filter { !it.isDone })
-                break
-            }
-        }
-    }
-
-    enum class Visibility {
-        NORMAL, SHOWN_ALL
+        alarmManager?.setRepeating(
+            AlarmManager.RTC_WAKEUP,
+            calendar.timeInMillis,
+            AlarmManager.INTERVAL_DAY,
+            pendingIntent
+        )
     }
 }

@@ -87,4 +87,12 @@ class SwipeCallback(
             }
         }
     }
+
+    override fun getSwipeDirs(
+        recyclerView: RecyclerView,
+        viewHolder: RecyclerView.ViewHolder
+    ): Int {
+        if (viewHolder is LastItemViewHolder) return 0
+        return super.getSwipeDirs(recyclerView, viewHolder)
+    }
 }

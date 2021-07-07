@@ -6,6 +6,7 @@
     android:fitsSystemWindows="true">
 
     <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/app_bar_layout"
         android:layout_width="match_parent"
         android:layout_height="160dp"
         android:fitsSystemWindows="true"
@@ -16,41 +17,41 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fitsSystemWindows="true"
+            app:collapsedTitleTextAppearance="@style/TextAppearance.AppCompat.Title.Black"
             app:contentScrim="?attr/colorPrimaryVariant"
+            app:expandedTitleMarginBottom="50sp"
+            app:expandedTitleMarginStart="60sp"
+            app:expandedTitleTextAppearance="@style/TextAppearance.Design.CollapsingToolbar.Expanded.Black"
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
             app:title="@string/my_affairs"
-            app:toolbarId="@+id/toolbar"
-            app:expandedTitleTextAppearance="@style/TextAppearance.Design.CollapsingToolbar.Expanded.Black"
-            app:collapsedTitleTextAppearance="@style/TextAppearance.AppCompat.Title.Black"
-            app:expandedTitleMarginStart="60sp"
-            app:expandedTitleMarginBottom="50sp">
+            app:toolbarId="@+id/toolbar">
 
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 app:layout_collapseMode="pin"
-                app:popupTheme="@style/Theme.ToDo.PopupOverlay"/>
+                app:popupTheme="@style/Theme.ToDo.PopupOverlay" />
 
             <TextView
                 android:id="@+id/textViewCount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="16sp"
-                android:textColor="@color/tertiary_label"
                 android:layout_gravity="bottom"
                 android:layout_marginStart="62dp"
                 android:layout_marginBottom="15dp"
-                app:layout_collapseMode="parallax"/>
+                android:textColor="@color/tertiary_label"
+                android:textSize="16sp"
+                app:layout_collapseMode="parallax" />
 
             <ImageView
                 android:id="@+id/imageViewVisibility"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:srcCompat="@drawable/ic_visibility"
                 android:layout_gravity="end|bottom"
+                android:layout_marginEnd="16dp"
                 android:layout_marginBottom="16dp"
-                android:layout_marginEnd="16dp"/>
+                app:srcCompat="@drawable/ic_visibility" />
         </com.google.android.material.appbar.CollapsingToolbarLayout>
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -58,20 +59,22 @@
         android:id="@+id/list_notes"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/recycler_shape"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:elevation="2dp" />
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/shape_rounded_corners"
+        android:elevation="2dp"
+        android:overScrollMode="never"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/btn_add_note"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="40dp"
-        app:srcCompat="@drawable/ic_plus"
         app:backgroundTint="@color/blue"
-        app:maxImageSize="14dp"/>
+        app:maxImageSize="14dp"
+        app:srcCompat="@drawable/ic_plus" />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

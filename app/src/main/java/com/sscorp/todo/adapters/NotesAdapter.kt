@@ -6,12 +6,14 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.sscorp.todo.R
-import com.sscorp.todo.activities.MainActivity
+import com.sscorp.todo.fragments.NotesFragment
 import com.sscorp.todo.models.Note
 import java.lang.IllegalArgumentException
 
 class NotesAdapter(
-    val context: Context
+    val context: Context,
+    private val view: NotesFragment,
+    private val onCheckBoxClick: (note: Note, pos: Int) -> Unit
 ) : ListAdapter<Note, RecyclerView.ViewHolder>(NoteCallback()) {
 
     private val inflater: LayoutInflater = LayoutInflater.from(context)
@@ -20,9 +22,12 @@ class NotesAdapter(
         return when (viewType) {
             TYPE_NOTE -> NotesViewHolder(
                 context,
+                onCheckBoxClick,
                 inflater.inflate(R.layout.list_item_note, parent, false)
             )
-            TYPE_NEW -> LastItemViewHolder(inflater.inflate(R.layout.list_item_new, parent, false))
+            TYPE_NEW -> LastItemViewHolder(
+                context, inflater.inflate(R.layout.list_item_new, parent, false)
+            )
             else -> throw IllegalArgumentException()
         }
     }
@@ -41,11 +46,9 @@ class NotesAdapter(
 
     override fun getItemCount(): Int = currentList.size + 1
 
-    fun deleteItem(position: Int) = (context as MainActivity).deleteNote(position)
+    fun deleteItem(position: Int) = view.deleteNote(getItem(position))
 
-    fun checkItem(position: Int) {
-
-    }
+    fun checkItem(position: Int) = view.checkNote(getItem(position), position)
 
     companion object {
         const val TYPE_NOTE = 0

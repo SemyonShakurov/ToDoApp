@@ -4,15 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingBottom="16dp">
+    android:paddingBottom="11dp">
 
-    <CheckBox
+    <androidx.appcompat.widget.AppCompatCheckBox
         android:id="@+id/checkBoxIsDone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="21dp"
-        android:layout_marginTop="22dp"
-        android:background="@drawable/ic_unchecked"
+        android:layout_marginStart="14dp"
+        android:layout_marginTop="19dp"
         android:minWidth="0dp"
         android:minHeight="0dp"
         android:scaleX="1.2"
@@ -24,7 +23,7 @@
         android:id="@+id/imageViewPriority"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="12dp"
         android:layout_marginTop="3dp"
         app:layout_constraintStart_toEndOf="@+id/checkBoxIsDone"
         app:layout_constraintTop_toTopOf="@+id/textViewDescription" />
@@ -33,7 +32,7 @@
         android:id="@+id/imageViewInfo"
         android:layout_width="25dp"
         android:layout_height="25dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="24dp"
         android:layout_marginEnd="14dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -43,9 +42,9 @@
         android:id="@+id/textViewDescription"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="16dp"
         android:layout_marginStart="4dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="16dp"
         android:ellipsize="end"
         android:maxLines="3"
         android:textColor="@color/black"
@@ -53,6 +52,16 @@
         app:layout_constraintEnd_toStartOf="@+id/imageViewInfo"
         app:layout_constraintStart_toEndOf="@+id/imageViewPriority"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_goneMarginStart="16dp"
+        app:layout_goneMarginStart="12dp"
         tools:text="Купить что-то Купить что-то Купить что-то Купить что-то Купить что-то Купить что-то Купить что-то" />
+
+    <TextView
+        android:id="@+id/textViewDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="11.11.1111"
+        android:layout_marginTop="4dp"
+        android:textColor="@color/tertiary_label"
+        app:layout_constraintStart_toStartOf="@+id/textViewDescription"
+        app:layout_constraintTop_toBottomOf="@+id/textViewDescription" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,8 +1,18 @@
 <resources>
     <string name="app_name">ToDo</string>
     <string name="my_affairs">Мои дела</string>
-    <string name="count_done">Выполнено - %d</string>
+    <string name="count_done">Выполнено — %d</string>
     <string name="item_new">Новое</string>
-    <string name="save">Сохранить</string>
+    <string name="save">сохранить</string>
     <string name="hint_description">Что надо сделать…</string>
+    <string-array name="priority_array">
+        <item>Нет</item>
+        <item>Низкий</item>
+        <item>Высокий</item>
+    </string-array>
+    <string name="priority">Важность</string>
+    <string name="do_before">Сделать до</string>
+    <string name="no">Нет</string>
+    <string name="delete">Удалить</string>
+    <string name="description_empty">Описание не заполнено</string>
 </resources>
