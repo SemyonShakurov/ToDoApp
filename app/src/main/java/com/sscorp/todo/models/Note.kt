@@ -9,7 +9,8 @@ data class Note(
     val description: String,
     val importance: Importance = Importance.NO,
     val expirationDate: Date? = null,
-    var isDone: Boolean = false
+    var isDone: Boolean = false,
+    var id: Long? = null
 ) : Comparable<Note>, Parcelable {
 
     override fun compareTo(other: Note): Int = when {

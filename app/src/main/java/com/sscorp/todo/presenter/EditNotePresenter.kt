@@ -9,17 +9,20 @@ class EditNotePresenter(
 ) {
 
     fun addNote(note: Note) {
-        NotesModel.addNote(note)
-        view.activity?.onBackPressed()
+        NotesModel.addNote(note) {
+            view.activity?.onBackPressed()
+        }
     }
 
     fun deleteNote(note: Note) {
-        NotesModel.deleteNote(note)
-        view.activity?.onBackPressed()
+        NotesModel.deleteNote(note) {
+            view.activity?.onBackPressed()
+        }
     }
 
     fun updateNote(oldNoteData: Note, newNoteDate: Note) {
-        NotesModel.updateNote(oldNoteData, newNoteDate)
-        view.activity?.onBackPressed()
+        NotesModel.updateNote(oldNoteData, newNoteDate) {
+            view.activity?.onBackPressed()
+        }
     }
 }
