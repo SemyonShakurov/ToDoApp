@@ -28,20 +28,23 @@ class NotesPresenter(
     }
 
     fun deleteNote(note: Note) {
-        NotesModel.deleteNote(note)
-        view.updateCountOfCompleted(NotesModel.notes.filter { it.isDone }.size)
-        val sortedNotes = getFilteredAndSortedNotes(NotesModel.notes)
-        view.showNotes(sortedNotes)
+        NotesModel.deleteNote(note) {
+            view.updateCountOfCompleted(NotesModel.notes.filter { it.isDone }.size)
+            val sortedNotes = getFilteredAndSortedNotes(NotesModel.notes)
+            view.showNotes(sortedNotes)
+        }
     }
 
     fun checkBoxClick(note: Note, position: Int) {
         note.isDone = !note.isDone
+        NotesModel.updateNoteDataInDb(note)
         view.updateCountOfCompleted(NotesModel.notes.filter { it.isDone }.size)
         view.updateListItemView(position)
     }
 
     fun checkNote(note: Note, position: Int) {
         note.isDone = true
+        NotesModel.updateNoteDataInDb(note)
         view.updateCountOfCompleted(NotesModel.notes.filter { it.isDone }.size)
         view.updateListItemView(position)
     }
