@@ -1,3 +1,23 @@
 <resources>
     <string name="app_name">ToDo</string>
+    <string name="my_tasks">Мои дела</string>
+    <string name="descr_visibility">icon for changing visibility</string>
+    <string name="add_btn_descr">add new task</string>
+    <string name="priority_icon_descr">priority icon</string>
+    <string name="icon_info_descr">info</string>
+    <string name="item_new">Новое</string>
+    <string name="count_done">Выполнено — %d</string>
+    <string name="save">Сохранить</string>
+    <string name="hint_description">Что надо сделать…</string>
+    <string name="priority">Важность</string>
+    <string name="do_before">Сделать до</string>
+    <string name="no">Нет</string>
+    <string name="delete">Удалить</string>
+    <string-array name="priority_array">
+        <item>Нет</item>
+        <item>Низкий</item>
+        <item>Высокий</item>
+    </string-array>
+    <string name="description_empty">Описание не заполнено</string>
+    <string name="done">Выполнено - 0</string>
 </resources>

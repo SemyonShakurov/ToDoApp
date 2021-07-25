@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/tasksFragment">
+
+    <fragment
+        android:id="@+id/tasksFragment"
+        android:name="com.sscorp.todo.fragments.TasksFragment"
+        android:label="TasksFragment"
+        tools:layout="@layout/fragment_tasks">
+        <action
+            android:id="@+id/action_tasksFragment_to_editTasksFragment"
+            app:destination="@id/editTasksFragment">
+            <argument
+                android:name="task"
+                android:defaultValue="@null"
+                app:argType="com.sscorp.todo.models.Task"
+                app:nullable="true"/>
+        </action>
+    </fragment>
+
+    <fragment
+        android:id="@+id/editTasksFragment"
+        android:name="com.sscorp.todo.fragments.EditTasksFragment"
+        android:label="EditTasksFragment"
+        tools:layout="@layout/fragment_edit_tasks">
+        <argument
+            android:name="task"
+            android:defaultValue="@null"
+            app:argType="com.sscorp.todo.models.Task"
+            app:nullable="true" />
+    </fragment>
+</navigation>
